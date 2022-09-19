@@ -227,8 +227,40 @@
           1,
           null
         ]
+      },
+      "/Users/thomashaines/turing/4mod/projects/tea_subscription_service/spec/models/subscription_spec.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          2,
+          2,
+          null,
+          null,
+          1,
+          2,
+          2,
+          2,
+          2,
+          null,
+          null
+        ]
+      },
+      "/Users/thomashaines/turing/4mod/projects/tea_subscription_service/app/models/subscription.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null
+        ]
       }
     },
-    "timestamp": 1663629226
+    "timestamp": 1663629476
   }
 }
