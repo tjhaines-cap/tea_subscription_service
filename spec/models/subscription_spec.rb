@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Subscription do
   describe 'associations' do
     it { should belong_to :customer }
-    it { should have_many :teas }
+    it { should belong_to :tea }
   end
 
   describe 'validations' do

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Tea do
   describe 'assocations' do
-    it { should belong_to :subscription}
+    it { should have_many :subscriptions}
   end
 
   describe 'validations' do
