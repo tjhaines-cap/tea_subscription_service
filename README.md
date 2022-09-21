@@ -26,7 +26,7 @@ Things you may want to cover:
 ### Schema design
 <img width="622" alt="Screen Shot 2022-09-21 at 9 39 47 AM" src="https://user-images.githubusercontent.com/60715457/191549065-3077183e-911f-4746-bedd-7b74c8baea9c.png">
 
-### Subscription endpoint
+### Subscription Creation endpoint
 Request
 ```
 POST /api/v1/subscriptions
@@ -42,4 +42,44 @@ Response
 ```
 status: 201
 ```
+
+### Customer Subscription retrieval endpoint
+Request
+```
+get '/api/v1/subscriptions'
+parameters = {
+        customer_email: "customer@email.com"
+        }
+```
+Response
+```
+{"data"=>
+  [
+    {
+      "id"=>"27",
+      "type"=>"subscription",
+      "attributes"=>
+        {
+          "title"=>"Green Tea", 
+          "price"=>5.5, 
+          "status"=>"Active", 
+          "frequency"=>"Weekly"
+        }
+    },
+   {
+      "id"=>"28",
+      "type"=>"subscription",
+      "attributes"=>
+        {
+          "title"=>"Black Tea", 
+          "price"=>5.5, 
+          "status"=>"Active", 
+          "frequency"=>"Weekly"
+        }
+    }
+  ]
+}
+```
+
+
 
