@@ -24,5 +24,22 @@ Things you may want to cover:
 * ...
 
 ### Schema design
-<img width="622" alt="Screen Shot 2022-09-19 at 5 23 13 PM" src="https://user-images.githubusercontent.com/60715457/191136080-779c49ba-ecdf-48e2-a87d-90b2f58220d8.png">
+<img width="622" alt="Screen Shot 2022-09-21 at 9 39 47 AM" src="https://user-images.githubusercontent.com/60715457/191549065-3077183e-911f-4746-bedd-7b74c8baea9c.png">
+
+### Subscription endpoint
+Request
+```
+POST /api/v1/subscriptions
+parameters = {
+          title: 'Green Tea',
+          price: 3.25,
+          status: 'active',
+          frequency: 'weekly',
+          customer_email: 'customer@email.com'
+        }
+```
+Response
+```
+status: 201
+```
 
