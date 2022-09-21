@@ -16,7 +16,7 @@ RSpec.describe 'Subscription Requests' do
           customer_email: 'customer@email.com'
         }
         expect do
-          post '/api/v1/subscription', params: parameters
+          post '/api/v1/subscriptions', params: parameters
         end.to change { Subscription.count }.by(1) 
 
         json = JSON.parse(response.body, symbolize_names: true)
