@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'Subscription Requests' do
 
-  
   describe 'POST api/v1/subscriptions' do
     context 'success' do
       it 'creates a subscription in the database associated with a customer and a tea' do
@@ -51,13 +50,12 @@ RSpec.describe 'Subscription Requests' do
         subscription1 = create(:subscription, title: "Green Tea", tea_id: tea.id, customer_id: customer.id)
         subscription2 = create(:subscription, title: "Black Tea", tea_id: black_tea.id, customer_id: customer.id)
 
-        get '/api/v1/subscriptions', params: {customer_email: "Customer@email.com"}
+        get '/api/v1/subscriptions', params: {customer_email: "customer@email.com"}
 
-        binding.pry
         expect(response.status).to eq(200)
         json = JSON.parse(response.body, symbolize_names: true)
         data = json[:data] 
-        expect(data).to be_a(Hash)
+        expect(data).to be_a(Array)
         expect(data.length).to eq(2)
       end
     end

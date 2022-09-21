@@ -7,6 +7,12 @@ class Api::V1::SubscriptionsController < ApplicationController
     render status: :created
   end
 
+  def show
+    customer = Customer.find_by(email: params[:customer_email])
+    subscriptions = customer.subscriptions
+    render json: SubscriptionSerializer.new(subscriptions), status: :ok
+  end
+
   private
   def subscription_params
     params.permit(:title, :price, :status, :frequency)
