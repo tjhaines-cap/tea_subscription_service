@@ -29,55 +29,61 @@ Things you may want to cover:
 ### Subscription Creation endpoint
 Request
 ```
-POST /api/v1/subscriptions
+POST /api/v1/customers/:id/subscriptions
 parameters = {
           title: 'Green Tea',
           price: 3.25,
           status: 'active',
           frequency: 'weekly',
-          customer_email: 'customer@email.com'
+          tea_id: 1
         }
 ```
 Response
 ```
-status: 201
+{
+    "data": {
+        "id": "3",
+        "type": "subscription",
+        "attributes": {
+            "title": "Green Tea",
+            "price": 3.5,
+            "status": "active",
+            "frequency": "monthly"
+        }
+    }
+}
 ```
 
 ### Customer Subscription retrieval endpoint
 Request
 ```
-get '/api/v1/subscriptions'
-parameters = {
-        customer_email: "customer@email.com"
-        }
+get '/api/v1/customers/:id/subscriptions'
 ```
 Response
 ```
-{"data"=>
-  [
-    {
-      "id"=>"27",
-      "type"=>"subscription",
-      "attributes"=>
+{
+    "data": [
         {
-          "title"=>"Green Tea", 
-          "price"=>5.5, 
-          "status"=>"Active", 
-          "frequency"=>"Weekly"
-        }
-    },
-   {
-      "id"=>"28",
-      "type"=>"subscription",
-      "attributes"=>
+            "id": "1",
+            "type": "subscription",
+            "attributes": {
+                "title": "Green Tea",
+                "price": 3.5,
+                "status": "active",
+                "frequency": "monthly"
+            }
+        },
         {
-          "title"=>"Black Tea", 
-          "price"=>5.5, 
-          "status"=>"Active", 
-          "frequency"=>"Weekly"
+            "id": "3",
+            "type": "subscription",
+            "attributes": {
+                "title": "Green Tea",
+                "price": 3.5,
+                "status": "active",
+                "frequency": "monthly"
+            }
         }
-    }
-  ]
+    ]
 }
 ```
 
