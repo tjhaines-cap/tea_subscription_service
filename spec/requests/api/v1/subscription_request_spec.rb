@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Subscription Requests' do
 
-  describe 'POST api/v1/subscriptions' do
+  describe 'POST api/v1/customers/:id/subscriptions' do
     context 'success' do
       it 'creates a subscription in the database associated with a customer and a tea' do
         customer = create(:customer)
@@ -41,7 +41,7 @@ RSpec.describe 'Subscription Requests' do
     end
   end
 
-  describe 'GET api/v1/subscriptions' do
+  describe 'GET api/v1/customers/:id/subscriptions' do
     context 'success' do
       it 'returns all subscriptions for a given customer' do
         customer = create(:customer)
@@ -57,6 +57,42 @@ RSpec.describe 'Subscription Requests' do
         data = json[:data] 
         expect(data).to be_a(Array)
         expect(data.length).to eq(2)
+      end
+    end
+  end
+
+  describe 'PATCH api/v1/customers/:id/subscriptions/:id' do
+    context 'success' do
+      it 'changes subscription status to cancelled' do
+        customer = create(:customer)
+        tea = create(:tea)
+        black_tea = create(:tea, title: "Black Tea")
+        subscription1 = create(:subscription, title: "Green Tea", tea_id: tea.id, customer_id: customer.id)
+        subscription2 = create(:subscription, title: "Black Tea", tea_id: black_tea.id, customer_id: customer.id)
+        
+        expect(subscription1.status).to eq("Active")
+
+        patch "/api/v1/customers/#{customer.id}/subscriptions/#{subscription1.id}"
+
+        expect(response.status).to eq(202)
+        json = JSON.parse(response.body, symbolize_names: true)
+        data = json[:data] 
+        expect(data).to be_a(Hash)
+        expect(data[:attributes][:status]).to eq("Cancelled")
+        expect(Subscription.find(subscription1.id).status).to eq("Cancelled")
+      end
+    end
+
+    context 'failure' do
+      it 'returns 404 if there is no subscription with the given id' do
+        customer = create(:customer)
+        tea = create(:tea)
+
+        patch "/api/v1/customers/#{customer.id}/subscriptions/1"
+
+        expect(response.status).to eq(404)
+        json = JSON.parse(response.body, symbolize_names: true) 
+        expect(json[:errors]).to eq("Invalid Subscription ID")
       end
     end
   end

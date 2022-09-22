@@ -29,7 +29,7 @@ Things you may want to cover:
 ### Subscription Creation endpoint
 Request
 ```
-POST /api/v1/customers/:id/subscriptions
+POST /api/v1/customers/:customer_id/subscriptions
 parameters = {
           title: 'Green Tea',
           price: 3.25,
@@ -38,7 +38,7 @@ parameters = {
           tea_id: 1
         }
 ```
-Response
+Response - status: 201
 ```
 {
     "data": {
@@ -57,9 +57,9 @@ Response
 ### Customer Subscription retrieval endpoint
 Request
 ```
-get '/api/v1/customers/:id/subscriptions'
+get '/api/v1/customers/:customer_id/subscriptions'
 ```
-Response
+Response - status: 200
 ```
 {
     "data": [
@@ -86,6 +86,25 @@ Response
     ]
 }
 ```
-
+### Cancel Subscription Endpoint
+Request
+```
+patch '/api/v1/customers/:customer_id/subscriptions/:id'
+```
+Response - status: 202
+```
+{
+    "data": {
+        "id": "1",
+        "type": "subscription",
+        "attributes": {
+            "title": "Green Tea",
+            "price": 3.5,
+            "status": "Cancelled",
+            "frequency": "monthly"
+        }
+    }
+}
+```
 
 
