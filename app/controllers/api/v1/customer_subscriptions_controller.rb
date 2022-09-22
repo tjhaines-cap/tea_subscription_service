@@ -1,4 +1,4 @@
-class Api::V1::SubscriptionsController < ApplicationController
+class Api::V1::CustomerSubscriptionsController < ApplicationController
 
   def create
     # binding.pry
@@ -9,7 +9,9 @@ class Api::V1::SubscriptionsController < ApplicationController
   end
 
   def show
-    customer = Customer.find_by(email: params[:customer_email])
+    # binding.pry
+    # customer = Customer.find_by(email: params[:customer_email])
+    customer = Customer.find(params[:customer_id])
     subscriptions = customer.subscriptions
     render json: SubscriptionSerializer.new(subscriptions), status: :ok
   end

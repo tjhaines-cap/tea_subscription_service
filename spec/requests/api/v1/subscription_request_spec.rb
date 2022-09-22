@@ -50,7 +50,7 @@ RSpec.describe 'Subscription Requests' do
         subscription1 = create(:subscription, title: "Green Tea", tea_id: tea.id, customer_id: customer.id)
         subscription2 = create(:subscription, title: "Black Tea", tea_id: black_tea.id, customer_id: customer.id)
 
-        get '/api/v1/subscriptions', params: {customer_email: "customer@email.com"}
+        get "/api/v1/customers/#{customer.id}/subscriptions"#, params: {customer_email: "customer@email.com"}
 
         expect(response.status).to eq(200)
         json = JSON.parse(response.body, symbolize_names: true)
