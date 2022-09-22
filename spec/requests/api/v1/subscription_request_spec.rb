@@ -82,6 +82,18 @@ RSpec.describe 'Subscription Requests' do
         expect(Subscription.find(subscription1.id).status).to eq("Cancelled")
       end
     end
+
+    context 'failure' do
+      it 'returns 404 if there is no subscription with the given id' do
+        customer = create(:customer)
+        tea = create(:tea)
+
+        patch "/api/v1/customers/#{customer.id}/subscriptions/1"
+
+        expect(response.status).to eq(404)
+        expect(response.errors).to eq("Invalid Subscription ID")
+      end
+    end
   end
 
 end
