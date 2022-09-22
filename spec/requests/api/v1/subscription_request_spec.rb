@@ -91,7 +91,8 @@ RSpec.describe 'Subscription Requests' do
         patch "/api/v1/customers/#{customer.id}/subscriptions/1"
 
         expect(response.status).to eq(404)
-        expect(response.errors).to eq("Invalid Subscription ID")
+        json = JSON.parse(response.body, symbolize_names: true) 
+        expect(json[:errors]).to eq("Invalid Subscription ID")
       end
     end
   end

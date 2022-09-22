@@ -12,9 +12,13 @@ class Api::V1::CustomerSubscriptionsController < ApplicationController
   end
 
   def update
-    subscription = Subscription.find(params[:id])
-    subscription.update(status: "Cancelled")
-    render json: SubscriptionSerializer.new(subscription),  status: :accepted
+    subscription = Subscription.find_by_id(params[:id])
+    if subscription
+      subscription.update(status: "Cancelled")
+      render json: SubscriptionSerializer.new(subscription),  status: :accepted
+    else
+      render json: { errors: "Invalid Subscription ID" }, status: :not_found
+    end
   end
 
   private
