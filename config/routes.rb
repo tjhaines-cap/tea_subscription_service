@@ -3,9 +3,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :customers do
-        post 'subscriptions', to: 'customer_subscriptions#create'
-        # resources :subscriptions, only: [:show]
-        get 'subscriptions', to: 'customer_subscriptions#show'
+        resources :subscriptions, only: [:create, :index, :update], controller: :customer_subscriptions
       end
     end
   end

@@ -72,14 +72,14 @@ RSpec.describe 'Subscription Requests' do
         
         expect(subscription1.status).to eq("Active")
 
-        patch "/api/v1/customers/#{customer.id}/subscriptions/#{subscritpion1.id}"
+        patch "/api/v1/customers/#{customer.id}/subscriptions/#{subscription1.id}"
 
         expect(response.status).to eq(202)
         json = JSON.parse(response.body, symbolize_names: true)
         data = json[:data] 
-        expect(data).to be_a(Array)
-        expect(data.length).to eq(2)
-        expect(subscription1.status).to eq("Cancelled")
+        expect(data).to be_a(Hash)
+        expect(data[:attributes][:status]).to eq("Cancelled")
+        expect(Subscription.find(subscription1.id).status).to eq("Cancelled")
       end
     end
   end
