@@ -1,10 +1,11 @@
 class Api::V1::SubscriptionsController < ApplicationController
 
   def create
+    # binding.pry
     tea = Tea.find_by(title: params[:title])
     customer = Customer.find_by(email: params[:customer_email])
     subscription = Subscription.create(title: params[:title], price: params[:price], status: params[:status], frequency: params[:frequency], tea_id: tea.id, customer_id: customer.id)
-    render status: :created
+    render json: SubscriptionSerializer.new(subscription), status: :created
   end
 
   def show
