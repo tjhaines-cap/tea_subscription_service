@@ -26,20 +26,66 @@ Things you may want to cover:
 ### Schema design
 <img width="622" alt="Screen Shot 2022-09-21 at 9 39 47 AM" src="https://user-images.githubusercontent.com/60715457/191549065-3077183e-911f-4746-bedd-7b74c8baea9c.png">
 
-### Subscription endpoint
+### Subscription Creation endpoint
 Request
 ```
-POST /api/v1/subscriptions
+POST /api/v1/customers/:id/subscriptions
 parameters = {
           title: 'Green Tea',
           price: 3.25,
           status: 'active',
           frequency: 'weekly',
-          customer_email: 'customer@email.com'
+          tea_id: 1
         }
 ```
 Response
 ```
-status: 201
+{
+    "data": {
+        "id": "3",
+        "type": "subscription",
+        "attributes": {
+            "title": "Green Tea",
+            "price": 3.5,
+            "status": "active",
+            "frequency": "monthly"
+        }
+    }
+}
 ```
+
+### Customer Subscription retrieval endpoint
+Request
+```
+get '/api/v1/customers/:id/subscriptions'
+```
+Response
+```
+{
+    "data": [
+        {
+            "id": "1",
+            "type": "subscription",
+            "attributes": {
+                "title": "Green Tea",
+                "price": 3.5,
+                "status": "active",
+                "frequency": "monthly"
+            }
+        },
+        {
+            "id": "3",
+            "type": "subscription",
+            "attributes": {
+                "title": "Green Tea",
+                "price": 3.5,
+                "status": "active",
+                "frequency": "monthly"
+            }
+        }
+    ]
+}
+```
+
+
 
