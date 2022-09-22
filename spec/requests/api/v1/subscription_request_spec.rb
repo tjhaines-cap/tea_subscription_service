@@ -13,10 +13,10 @@ RSpec.describe 'Subscription Requests' do
           price: 3.25,
           status: 'active',
           frequency: 'weekly',
-          customer_email: 'customer@email.com'
+          tea_id: tea.id
         }
         expect do
-          post '/api/v1/subscriptions', params: parameters
+          post "/api/v1/customers/#{customer.id}/subscriptions", params: parameters
         end.to change { Subscription.count }.by(1) 
 
         expect(response.status).to eq(201)
@@ -28,11 +28,11 @@ RSpec.describe 'Subscription Requests' do
           price: 3.50,
           status: 'active',
           frequency: 'monthly',
-          customer_email: 'customer@email.com'
+          tea_id: black_tea.id
         }
 
         expect do
-          post '/api/v1/subscriptions', params: parameters2
+          post "/api/v1/customers/#{customer.id}/subscriptions", params: parameters2
         end.to change { Subscription.count }.by(1)
         expect(Customer.find(customer.id).subscriptions.length).to eq(2)
         expect(tea.subscriptions.length).to eq(1)
@@ -50,7 +50,7 @@ RSpec.describe 'Subscription Requests' do
         subscription1 = create(:subscription, title: "Green Tea", tea_id: tea.id, customer_id: customer.id)
         subscription2 = create(:subscription, title: "Black Tea", tea_id: black_tea.id, customer_id: customer.id)
 
-        get "/api/v1/customers/#{customer.id}/subscriptions"#, params: {customer_email: "customer@email.com"}
+        get "/api/v1/customers/#{customer.id}/subscriptions"
 
         expect(response.status).to eq(200)
         json = JSON.parse(response.body, symbolize_names: true)
