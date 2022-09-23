@@ -39,6 +39,44 @@ RSpec.describe 'Subscription Requests' do
         expect(black_tea.subscriptions.length).to eq(1)
       end
     end
+
+
+    context 'failure' do
+      it 'returns an error if not all fields are provided' do
+        customer = create(:customer)
+        tea = create(:tea)
+        black_tea = create(:tea, title: "Black Tea")
+        parameters = {
+          title: 'Green Tea',
+          status: 'active',
+          frequency: 'weekly',
+          tea_id: tea.id
+        }
+        
+        post "/api/v1/customers/#{customer.id}/subscriptions", params: parameters
+      
+        expect(response.status).to eq(400)
+        json = JSON.parse(response.body, symbolize_names: true)
+        expect(json[:errors]).to eq(["Price can't be blank"])
+      end
+
+      it 'returns an error if invalid tea id is given' do
+        customer = create(:customer)
+        parameters = {
+          title: 'Green Tea',
+          price: 3.50,
+          status: 'active',
+          frequency: 'weekly',
+          tea_id: 1
+        }
+        
+        post "/api/v1/customers/#{customer.id}/subscriptions", params: parameters
+      
+        expect(response.status).to eq(400)
+        json = JSON.parse(response.body, symbolize_names: true)
+        expect(json[:errors]).to eq(["Tea must exist"])
+      end
+    end
   end
 
   describe 'GET api/v1/customers/:id/subscriptions' do
@@ -59,6 +97,7 @@ RSpec.describe 'Subscription Requests' do
         expect(data.length).to eq(2)
       end
     end
+
   end
 
   describe 'PATCH api/v1/customers/:id/subscriptions/:id' do
