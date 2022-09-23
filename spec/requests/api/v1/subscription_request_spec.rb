@@ -6,6 +6,7 @@ RSpec.describe 'Subscription Requests' do
     context 'success' do
       it 'creates a subscription in the database associated with a customer and a tea' do
         customer = create(:customer)
+        customer2 = create(:customer, email: "what@email.com")
         tea = create(:tea)
         black_tea = create(:tea, title: "Black Tea")
         parameters = {
@@ -22,6 +23,7 @@ RSpec.describe 'Subscription Requests' do
         expect(response.status).to eq(201)
         expect(customer.subscriptions.length).to eq(1)
         expect(tea.subscriptions.length).to eq(1)
+        expect(customer2.subscriptions.length).to eq(0)
 
         parameters2 = {
           title: 'Black Tea',
@@ -37,6 +39,7 @@ RSpec.describe 'Subscription Requests' do
         expect(Customer.find(customer.id).subscriptions.length).to eq(2)
         expect(tea.subscriptions.length).to eq(1)
         expect(black_tea.subscriptions.length).to eq(1)
+        expect(customer2.subscriptions.length).to eq(0)
       end
     end
 
