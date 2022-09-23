@@ -28,18 +28,19 @@ Things you may want to cover:
 
 ### Subscription Creation endpoint
 Request
-```
 POST /api/v1/customers/:customer_id/subscriptions
-parameters = {
-          title: 'Green Tea',
-          price: 3.25,
-          status: 'active',
-          frequency: 'weekly',
-          tea_id: 1
-        }
+body
+```JSON
+{
+    "title": "Green Tea",
+    "price": 3.50,
+    "status": "active",
+    "frequency": "monthly",
+    "tea_id": 2
+}
 ```
 Response - status: 201
-```
+```JSON
 {
     "data": {
         "id": "3",
@@ -54,13 +55,54 @@ Response - status: 201
 }
 ```
 
+Bad Request
+POST /api/v1/customers/:customer_id/subscriptions
+body
+```JSON
+{
+    "title": "Green Tea",
+    "status": "active",
+    "frequency": "monthly",
+    "tea_id": 1
+}
+```
+Response status: 400
+```JSON
+{
+    "errors": [
+        "Price can't be blank"
+    ]
+}
+```
+Bad Request
+POST /api/v1/customers/:customer_id/subscriptions
+body
+```JSON
+{
+    "title": "Green Tea",
+    "price": 3.50,
+    "status": "active",
+    "frequency": "monthly",
+    "tea_id": 8
+}
+```
+Response status: 400
+```JSON
+{
+    "errors": [
+        "Tea must exist"
+    ]
+}
+```
+
+
 ### Customer Subscription retrieval endpoint
 Request
-```
+
 get '/api/v1/customers/:customer_id/subscriptions'
-```
+
 Response - status: 200
-```
+```JSON
 {
     "data": [
         {
@@ -88,11 +130,11 @@ Response - status: 200
 ```
 ### Cancel Subscription Endpoint
 Request
-```
+
 patch '/api/v1/customers/:customer_id/subscriptions/:id'
-```
+
 Response - status: 202
-```
+```JSON
 {
     "data": {
         "id": "1",
@@ -104,6 +146,17 @@ Response - status: 202
             "frequency": "monthly"
         }
     }
+}
+```
+
+Bad Request
+
+patch '/api/v1/customers/:customer_id/subscriptions/:id'
+
+Response - status: 400
+```JSON
+{
+    "errors": "Invalid Subscription ID"
 }
 ```
 
