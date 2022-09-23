@@ -1,34 +1,23 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## About this project
 
-Things you may want to cover:
+This is an API that exposes three endpoints, one for creating a tea subscription for a customer, one for cancelling a tea subscription, and one for retrieiving a customers subscriptions both active and cancelled.
 
-* Ruby version
+## Installation Instructions
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-### Schema design
+- clone this repository
+- run `bundle install`
+- run `rails db:{create,migrate,seed}`
+- To run the test suite `bundle exec rspec`
+## Schema design
 <img width="622" alt="Screen Shot 2022-09-21 at 9 39 47 AM" src="https://user-images.githubusercontent.com/60715457/191549065-3077183e-911f-4746-bedd-7b74c8baea9c.png">
 
-### Subscription Creation endpoint
+## Subscription Creation endpoint
 Request
+
 POST /api/v1/customers/:customer_id/subscriptions
+
 body
 ```JSON
 {
@@ -56,7 +45,9 @@ Response - status: 201
 ```
 
 Bad Request
+
 POST /api/v1/customers/:customer_id/subscriptions
+
 body
 ```JSON
 {
@@ -75,7 +66,9 @@ Response status: 400
 }
 ```
 Bad Request
+
 POST /api/v1/customers/:customer_id/subscriptions
+
 body
 ```JSON
 {
@@ -96,7 +89,7 @@ Response status: 400
 ```
 
 
-### Customer Subscription retrieval endpoint
+## Customer Subscription retrieval endpoint
 Request
 
 get '/api/v1/customers/:customer_id/subscriptions'
@@ -128,7 +121,7 @@ Response - status: 200
     ]
 }
 ```
-### Cancel Subscription Endpoint
+## Cancel Subscription Endpoint
 Request
 
 patch '/api/v1/customers/:customer_id/subscriptions/:id'
